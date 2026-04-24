@@ -1,0 +1,25 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+name: blue
+endpoint_name: glm-ocr-vllm
+environment:
+  image: ${IMAGE}
+  inference_config:
+    liveness_route:
+      port: 8080
+      path: /health
+    readiness_route:
+      port: 8080
+      path: /health
+    scoring_route:
+      port: 8080
+      path: /v1/chat/completions
+instance_type: Standard_NC8as_T4_v3
+instance_count: 1
+request_settings:
+  request_timeout_ms: 300000
+environment_variables:
+  PORT: "8080"
+  SERVED_MODEL_NAME: "glm-ocr"
+  GPU_MEMORY_UTILIZATION: "0.85"
+  MAX_MODEL_LEN: "8192"
+  SPECULATIVE_CONFIG: '{"method":"mtp","num_speculative_tokens":3}'
