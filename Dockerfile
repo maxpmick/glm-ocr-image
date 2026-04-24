@@ -13,7 +13,7 @@ RUN python3 -m pip install --no-cache-dir --ignore-installed "blinker>=1.9.0" \
     "glmocr[selfhosted,server]"
 
 RUN mkdir -p "${MODEL_DIR}" \
-    && huggingface-cli download "${MODEL_REPO_ID}" --local-dir "${MODEL_DIR}"
+    && hf download "${MODEL_REPO_ID}" --local-dir "${MODEL_DIR}"
 
 ENV MODEL_ID=${MODEL_DIR}
 ENV SERVED_MODEL_NAME=glm-ocr
